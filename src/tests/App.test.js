@@ -5,22 +5,22 @@ import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 
 describe('Teste se o topo da aplicação contém um conjunto fixo de links de navegação', () => {
-  it('O primeiro link deve possuir o texto Home;', () => {
+  it('Testa se o primeiro link possui o text Home;', () => {
     renderWithRouter(<App />);
     const linkHome = screen.getByRole('link', { name: 'Home' });
     expect(linkHome).toBeDefined();
   });
-  it('O segundo link deve possuir o texto About', () => {
+  it('Testa se segundo link possuir o text About', () => {
     renderWithRouter(<App />);
     const linkAbout = screen.getByRole('link', { name: 'About' });
     expect(linkAbout).toBeDefined();
   });
-  it('O terceiro link deve possuir o texto Favorite Pokémon', () => {
+  it('Testa se terceiro link possuir o text Favorite Pokémon', () => {
     renderWithRouter(<App />);
     const linkFavPokemons = screen.getByRole('link', { name: 'Favorite Pokémon' });
     expect(linkFavPokemons).toBeDefined();
   });
-  it('Teste se a aplicação é redirecionada para a página inicial, na URL / ao clicar no link Home da barra de navegação', () => {
+  it('Testa se ao clicar no link Home da barra de navegação, a aplicação é redirecionada para a página inicial, na URL / ', () => {
     const { history } = renderWithRouter(<App />);
     const linkHome = screen.getByRole('link', { name: 'Home' });
     expect(linkHome).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('Teste se o topo da aplicação contém um conjunto fixo de links de na
     const { location: { pathname } } = history;
     expect(pathname).toEqual('/');
   });
-  it('Teste se a aplicação é redirecionada para a página de About, na URL /about, ao clicar no link About da barra de navegação', () => {
+  it('Testa se ao clicar no link About da barra de navegação, a aplicação é redirecionada para a página de About, na URL /about, ', () => {
     const { history } = renderWithRouter(<App />);
     const linkAbout = screen.getByRole('link', { name: 'About' });
     expect(linkAbout).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('Teste se o topo da aplicação contém um conjunto fixo de links de na
     const { location: { pathname } } = history;
     expect(pathname).toEqual('/about');
   });
-  it('Teste se a aplicação é redirecionada para a página de Pokémon Favoritados, na URL /favorites, ao clicar no link Favorite Pokémon da barra de navegação;', () => {
+  it('Testa se ao clicar no link Favorite Pokémon da barra de navegação, a aplicação é redirecionada para a página de Pokémon Favoritados, na URL /favorites, ', () => {
     const { history } = renderWithRouter(<App />);
     const linkFavPokemons = screen.getByRole('link', { name: 'Favorite Pokémon' });
     expect(linkFavPokemons).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe('Teste se o topo da aplicação contém um conjunto fixo de links de na
     const { location: { pathname } } = history;
     expect(pathname).toEqual('/favorites');
   });
-  it('Teste se a aplicação é redirecionada para a página Not Found ao entrar em uma URL desconhecida.', () => {
+  it('Testa se a aplicação é redirecionada para a página Not Found ao entrar em uma URL aleatoria.', () => {
     const { history } = renderWithRouter(<App />);
     const { location: { pathname } } = history;
     expect(pathname).toEqual('/');
