@@ -10,8 +10,11 @@ describe('Teste o componente PokemonDetails', () => {
     const linkDetails = screen.getByRole('link', { name: /more details/i });
     expect(linkDetails).toBeDefined();
     userEvent.click(linkDetails);
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/pokemon/25');
+    const {
+      location: { pathname },
+    } = history;
+    const localMoreDetails = '/pokemon/25';
+    expect(pathname).toBe(localMoreDetails);
 
     const namePoke = screen.getByRole('heading', { name: /pikachu details/i });
     expect(namePoke).toBeDefined();
@@ -20,48 +23,55 @@ describe('Teste o componente PokemonDetails', () => {
     const sumary = screen.getByRole('heading', { level: 2, name: /summary/i });
     expect(sumary).toHaveTextContent('Summary');
 
-    const textDescription = /this intelligent pokémon roasts hard berries with electricity to make them tender enough to eat/i;
+    const textDescription = 'This intelligent Pokémon roasts hard berries with electricity to make them tender enough to eat.';
     const text = screen.getByText(textDescription);
     expect(text).toHaveTextContent(textDescription);
   });
   it('Teste se existe na página uma seção com os mapas contendo as localizações do Pokémon', () => {
-    const { history } = renderWithRouter(<App />);
+    renderWithRouter(<App />);
 
     const linkDetails = screen.getByRole('link', { name: /more details/i });
     expect(linkDetails).toBeDefined();
     userEvent.click(linkDetails);
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/pokemon/25');
 
-    const locationGame = screen.getByRole('heading', { level: 2, name: /game locations of pikachu/i });
+    const locationGame = screen.getByRole('heading', {
+      level: 2,
+      name: /game locations of pikachu/i,
+    });
     expect(locationGame).toBeDefined();
 
     const imgMap = screen.getAllByRole('img', { name: /pikachu location/i });
     expect(imgMap).toBeDefined();
-    expect(imgMap[0].src).toEqual('https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png');
+    expect(imgMap[0].src).toEqual(
+      'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png',
+    );
     expect(imgMap[0].alt).toEqual('Pikachu location');
-    expect(imgMap[1].src).toEqual('https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png');
+    expect(imgMap[1].src).toEqual(
+      'https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png',
+    );
     expect(imgMap[1].alt).toEqual('Pikachu location');
 
     const nameMap = screen.getByText(/kanto power plant/i);
     expect(nameMap).toBeDefined();
   });
   it('Testa se o usuário pode favoritar um Pokémon através da página de detalhes', () => {
-    const { history } = renderWithRouter(<App />);
+    renderWithRouter(<App />);
 
     const linkDetails = screen.getByRole('link', { name: /more details/i });
     expect(linkDetails).toBeDefined();
     userEvent.click(linkDetails);
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/pokemon/25');
 
-    const checkPokeFavorites = screen.getByRole('checkbox', { name: /pokémon favoritado\?/i });
+    const checkPokeFavorites = screen.getByRole('checkbox', {
+      name: /pokémon favoritado\?/i,
+    });
     expect(checkPokeFavorites).toBeDefined();
     expect(checkPokeFavorites.checked).toBe(false);
 
     userEvent.click(checkPokeFavorites);
     expect(checkPokeFavorites.checked).toBe(true);
-    const starFavorites = screen.getByRole('img', { name: /pikachu is marked as favorite/i });
+    const starFavorites = screen.getByRole('img', {
+      name: /pikachu is marked as favorite/i,
+    });
     expect(starFavorites).toBeDefined();
 
     userEvent.click(checkPokeFavorites);
